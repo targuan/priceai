@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Suppression d'un magasin / marché{% endblock %}
+
+{% block content %}
+<h1>Supprimer ce magasin / marché ?</h1>
+
+<p>Voulez-vous vraiment supprimer le magasin / marché <strong>{{ object.name }}</strong> ?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+    <a href="{% url 'store_list' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

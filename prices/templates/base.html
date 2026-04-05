@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Suivi des prix{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar styles */
+        #sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding-top: 1rem;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Desktop: sidebar always visible */
+        @media (min-width: 769px) {
+            #sidebar {
+                transform: translateX(0);
+                position: relative;
+            }
+        }
+
+        /* Mobile: sidebar hidden by default */
+        @media (max-width: 768px) {
+            #sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                transform: translateX(-100%);
+                z-index: 1050;
+                border-right: 1px solid #dee2e6;
+            }
+
+            #sidebar.active {
+                transform: translateX(0);
+            }
+
+            /* Overlay effect when menu is open */
+            #overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.4);
+                z-index: 1049;
+            }
+
+            #overlay.active {
+                display: block;
+            }
+        }
+
+        /* Content area */
+        #content {
+            flex-grow: 1;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav id="sidebar" class="bg-light">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="">🏠 Accueil</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'brand_list' %}">📦 Marques</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'store_list' %}">🏬 Magasins / Marchés</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'product_list' %}">📦 Produits</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'price_list' %}">💰 Prix</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Overlay for mobile -->
+<div id="overlay"></div>
+
+<!-- Main content -->
+<div id="content" class="container-fluid">
+    <!-- Top navbar -->
+    <nav class="navbar navbar-light bg-light d-md-none">
+        <div class="container-fluid">
+            <button class="btn btn-outline-secondary" id="menu-toggle">☰ Menu</button>
+            <span class="navbar-brand mb-0 h1">{% block header %}Suivi des prix{% endblock %}</span>
+        </div>
+    </nav>
+
+    {% block content %}
+    <!-- Contenu spécifique à chaque page -->
+    {% endblock %}
+</div>
+
+<!-- Bootstrap JS + dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const toggleBtn = document.getElementById('menu-toggle');
+
+    function openSidebar() {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    toggleBtn.addEventListener('click', openSidebar);
+    overlay.addEventListener('click', closeSidebar);
+</script>
+
+</body>
+</html>
