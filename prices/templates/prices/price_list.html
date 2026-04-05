@@ -8,6 +8,19 @@
     <a href="{% url 'price_add' %}" class="btn btn-primary">Ajouter un prix</a>
 </div>
 
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-10">
+                <input type="text" name="q" class="form-control" placeholder="Rechercher un produit, une marque ou un magasin..." value="{{ request.GET.q }}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary w-100">Rechercher</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table table-striped table-hover">
     <thead class="table-dark">
         <tr>
