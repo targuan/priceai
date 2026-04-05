@@ -69,3 +69,25 @@ To add new features or modify existing ones:
 2. Run `python manage.py makemigrations` and `python manage.py migrate` to apply model changes.
 3. Update `prices/views.py` and `prices/urls.py` for new views and routes.
 4. Modify templates in `prices/templates/` to update the UI.
+
+## Docker & Kubernetes
+
+### Docker
+
+Build the image locally:
+```bash
+docker build -t price-tracker .
+```
+
+Run the container:
+```bash
+docker run -p 8000:8000 -e SECRET_KEY=your-secret-key price-tracker
+```
+
+### Kubernetes
+
+Apply the manifests:
+```bash
+kubectl apply -f k8s/deployment.yml
+```
+*Note: Ensure you have created the `price-tracker-secret` with a `secret-key` before deploying.*
